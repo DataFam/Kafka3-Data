@@ -24,4 +24,5 @@ class Customer(Base):
     fname = Column(String(250), nullable=False)
     lname = Column(String(250), nullable=False)
 
+Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
