@@ -21,6 +21,7 @@ class XactionConsumer:
 
     def handleMessages(self):
         for message in self.consumer:
+            # self is the generator itself as long as producer produces
             message = message.value
             print('{} received'.format(message))
             self.ledger[message['custid']] = message
