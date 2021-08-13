@@ -20,6 +20,7 @@ class Producer:
         return 'dep' if (random.randint(0,2) == 0) else 'wth'
 
     def generateRandomXactions(self, n=1000):
+        # n defaults to 1000
         for _ in range(n):
             data = self.emit()
             print('sent', data)
@@ -29,3 +30,4 @@ class Producer:
 if __name__ == "__main__":
     p = Producer()
     p.generateRandomXactions(n=20)
+    # by passing n = 20, it overwrites n = 1000 default 
