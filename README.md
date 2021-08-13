@@ -131,3 +131,28 @@ a couple samples in python Dicts.
 { custid: 55, createdate: 1587398219, fname: 'Lisa' lname: 'Loopner' }
 { custid: 56, createdate: 1587398301, fname: 'Todd' lname: 'Cushman' }
 ```
+## Steps to create database
+
+`touch bank.db`
+
+`sqlite3 bank.db`
+
+`.quit`
+
+# Project Steps
+
+1. Create `init_db.py` script that drops all tables and re-creates them
+
+2. Create Customer Table (create table in `init_db.py` using sqlalchemy)
+
+3. Create Customer Producer and Consumer
+
+4. Create Transaction Table (create table in `init_db.py` using sqlalchemy)
+
+5. Create Transaction Consumer
+
+6. Create Summary Consumers
+
+7. Create Limit Consumer
+
+8. Handle multiple branches and partitions
