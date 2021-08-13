@@ -136,6 +136,7 @@ a couple samples in python Dicts.
 `touch bank.db`
 
 `sqlite3 bank.db`
+- initializes dank.db as a sqlite3 database
 
 `.quit`
 
