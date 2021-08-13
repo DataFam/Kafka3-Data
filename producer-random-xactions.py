@@ -9,7 +9,9 @@ class Producer:
         self.producer = KafkaProducer(bootstrap_servers=['localhost:9092'], value_serializer=lambda m: dumps(m).encode('ascii'))
 
     def emit(self, cust=55, type="dep"):
-        data = {'custid' : random.randint(50,56),
+        data = {
+            'custid' : random.randint(50,56),
+            'branchid': random.randint(1, 3),
             'type': self.depOrWth(),
             'date': int(time.time()),
             'amt': random.randint(10,101)*100,
@@ -24,7 +26,7 @@ class Producer:
         for _ in range(n):
             data = self.emit()
             print('sent', data)
-            self.producer.send('bank-customer-events', value=data)
+            self.producer.send('transactions', value=data)
             sleep(1)
 
 if __name__ == "__main__":
