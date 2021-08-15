@@ -19,6 +19,7 @@ def customer_transaction_generator(producer):
         data['f_name'] = choice(listOfFirstNames)
         data['l_name'] = choice(listOfLastNames)
         data['date'] = int(time())
+        data['balance'] = 0
         producer.send('new_customers', value=data)
         print('customer added')
         sleep(5)

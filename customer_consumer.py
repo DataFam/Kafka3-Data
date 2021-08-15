@@ -12,10 +12,10 @@ if __name__ == "__main__":
 
     for message in consumer: 
             #print(message.value)
-            f_name, l_name, date = message.value.values()
+            f_name, l_name, date, balance = message.value.values()
             
-            db.execute("INSERT INTO customer (createdate, fname, lname) VALUES (?, ?, ?)",
-                (date, f_name, l_name))
+            db.execute("INSERT INTO customer (createdate, fname, lname, balance) VALUES (?, ?, ?, ?)",
+                (date, f_name, l_name, balance))
             
 
 
