@@ -35,7 +35,7 @@ class Limit(Base):
     # or equal to the limit supplied to the constructor. The intro suggests -5000 for eaxmple
     __tablename__ = 'healthy-ish balances'
     id = Column(Integer, primary_key= True)
-    custid = Column(Integer, primary_key= True)
+    custid = Column(Integer, ForeignKey('customer.custid'))
     createdate = Column(Integer)
     xaction = Column(String)
     balance = Column(Float)

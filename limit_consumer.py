@@ -9,9 +9,9 @@ if __name__ == '__main__':
                 bootstrap_servers = ['localhost:9092'],
                 value_deserializer = lambda m: loads(m.decode('ascii')))
     for message in consumer:
-        cust_id, date, xaction, balance = message.values.values()
+        cust_id, x_action_date, xaction_type, current_balance = message.value.values()
         print('cust_id: {} is a delinquent'.format(cust_id))
-        update_delinquents = "INSERT INTO \'healthy-ish balances'\ (custid, createdate, xaction, balance) VALUES({}, {}, {}, {})".format(cust_id, date, xaction, balance)
+        update_delinquents = "INSERT INTO \'healthy-ish balances\' (custid, createdate, xaction, balance) VALUES({}, {}, {}, {})".format(cust_id, x_action_date, xaction_type, current_balance)
         db.execute(update_delinquents)
 
     

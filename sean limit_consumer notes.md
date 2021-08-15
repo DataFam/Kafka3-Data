@@ -6,7 +6,6 @@
 - added transaction.custid a foreign key of customer.custid
 - made a balance column in customer
 - created a new table, healthy-ish balances, (sarcastic name)
-- healthy-ish balances does not have a 
 
 ### customer_producer.py
 - every new customer gets a starting balance of 0 
@@ -16,6 +15,7 @@
 
 ### producer-random-xactions.py
 - now when a transaction is generated, a random primary key (currently using randint of SQL count statement, but should probably use
+- transaction id doesn't update pass 9? 
 
 '''
 SELECT column FROM table
