@@ -4,6 +4,7 @@ from kafka import KafkaProducer
 import time
 import random
 from sqlalchemy import create_engine
+from sys import argv
 
 class Producer:
     
@@ -22,15 +23,13 @@ class Producer:
 
         data = {
             'custid' : random.randint(1, current_count[0][0]),
-            'branchid': random.randint(1, 3),
+            'branchid': (int(argv[1]) + 1),
             'type': self.depOrWth(),
             'date': int(time.time()),
             'amt': random.randint(10,101)*100,
             }
         return data
     
-
-
     def depOrWth(self):
         return 'dep' if (random.randint(0,2) == 0) else 'wth'
 
@@ -39,7 +38,8 @@ class Producer:
         for _ in range(n):
             data = self.emit()
             print('sent', data)
-            self.producer.send('transactions', value=data)
+            partition = int(argv[1])
+            self.producer.send('transactions', partition=partition, value=data)
             sleep(5)
             
 
