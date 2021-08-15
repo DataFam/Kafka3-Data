@@ -15,7 +15,6 @@
 
 ### producer-random-xactions.py
 - now when a transaction is generated, a random primary key (currently using randint of SQL count statement, but should probably use
-- transaction id doesn't update pass 9? 
 
 '''
 SELECT column FROM table
@@ -25,6 +24,7 @@ LIMIT 1
 '''
 
 is added to every transaction
+- transaction id doesn't update pass 9? 
 
 ### trnsaction_con_prod.py
 - renamed from transaction_consumers.py
