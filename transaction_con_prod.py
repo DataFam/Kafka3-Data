@@ -7,7 +7,11 @@ def transaction_consumer_producer():
         db = engine.connect()
         consumer = KafkaConsumer('transactions',
                 bootstrap_servers=['localhost:9092'],
-                value_deserializer=lambda m: loads(m.decode('ascii')))
+                value_deserializer=lambda m: loads(m.decode('ascii')),
+                group_id = 'delinquent'
+                
+                )
+                
 
         for message in consumer: 
                 print(message.value)
@@ -48,15 +52,13 @@ def delinquent_producer(custid, date, xaction, current):
         value_serializer=lambda m: dumps(m).encode('ascii'))
         data = {}
         data['custid'] = custid
+
         data['date'] = date
         data['xaction'] = xaction
         data['current'] = current
         producer.send('delinquents', value = data)
         print('delinquent added')
         
-
-
-
 
 
         
