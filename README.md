@@ -157,3 +157,29 @@ a couple samples in python Dicts.
 7. Create Limit Consumer
 
 8. Handle multiple branches and partitions
+
+# Running the beast
+
+1. Create a topics 'transactions' and 'customers' each with 3 partitions
+
+2. Create a 'summaries' and 'delinquents' groupid for the 'transactions' topic (you may have to do this from inside of you docker container)
+
+## Method from shell
+
+- `kafka-console-consumer --bootstrap-server localhost:9092 --topic transactions --group delinquent`
+
+- `kafka-console-consumer --bootstrap-server localhost:9092 --topic transactions --group summaries`
+
+## Method from inside docker container:
+
+- `docker exec -it dataengineeringkafkambyn_kafka_1 bash`
+
+- `cd /opt/kafka/bin`
+
+- `./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic transactions --group delinquent`
+
+- `./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic transactions --group summaries` 
+
+3. run this `chmod +x start_the_beast.sh`
+
+4. final step (hold your breath): `./start_the_beast.sh`
