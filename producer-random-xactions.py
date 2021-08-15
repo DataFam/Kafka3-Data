@@ -3,20 +3,33 @@ from json import dumps
 from kafka import KafkaProducer
 import time
 import random
+from sqlalchemy import create_engine
 
 class Producer:
+    
     def __init__(self):
         self.producer = KafkaProducer(bootstrap_servers=['localhost:9092'], value_serializer=lambda m: dumps(m).encode('ascii'))
 
     def emit(self, cust=55, type="dep"):
+        engine = create_engine('sqlite:///bank.db')
+        db = engine.connect()
+        sql = f"SELECT count() FROM customer"
+        current_count = db.execute(sql).fetchall()
+        # get count of number of customers, and then execute a transaction from one of the customers
+        # in the database
+        #print('hello', current_count[0][0])
+        #print(current_count)
+
         data = {
-            'custid' : random.randint(50,56),
+            'custid' : random.randint(1, current_count[0][0]),
             'branchid': random.randint(1, 3),
             'type': self.depOrWth(),
             'date': int(time.time()),
             'amt': random.randint(10,101)*100,
             }
         return data
+    
+
 
     def depOrWth(self):
         return 'dep' if (random.randint(0,2) == 0) else 'wth'
@@ -27,7 +40,8 @@ class Producer:
             data = self.emit()
             print('sent', data)
             self.producer.send('transactions', value=data)
-            sleep(1)
+            sleep(5)
+            
 
 if __name__ == "__main__":
     p = Producer()
