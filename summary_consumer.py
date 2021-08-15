@@ -8,6 +8,7 @@ if __name__ == "__main__":
     db = engine.connect()
     consumer = KafkaConsumer('transactions',
             bootstrap_servers=['localhost:9092'],
+            group_id='summaries',
             value_deserializer=lambda m: loads(m.decode('ascii')))
 
     # Create two empty lists, one to hold withdrawals and the other to hold deposits (outside of for loop, otherwise they would be reset each iteration)
