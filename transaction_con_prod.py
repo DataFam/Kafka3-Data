@@ -1,7 +1,6 @@
 from kafka import KafkaConsumer, KafkaProducer, TopicPartition
 from json import loads, dumps
 from sqlalchemy import create_engine
-from random import randint
 from sys import argv
 
 
@@ -12,7 +11,7 @@ def transaction_consumer_producer(partition):
                 bootstrap_servers=['localhost:9092'],
                 value_deserializer=lambda m: loads(m.decode('ascii')),
                 group_id = 'delinquent'
-                )
+        )
         consumer.assign([TopicPartition('transactions', partition)])
 
         for message in consumer: 
@@ -66,6 +65,7 @@ def delinquent_producer(custid, date, xaction, current):
         producer.send('delinquents', value = data)
         print('delinquent added')
         
+
 if __name__ == "__main__":
         partition = int(argv[1])
         transaction_consumer_producer(partition)

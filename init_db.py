@@ -28,7 +28,6 @@ class Customer(Base):
     balance = Column(Float, nullable=False)
 
 
-
 class Limit(Base):
 
     # LimitConsumer should keep track of the customer ids that have current balances greater 
