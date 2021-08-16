@@ -11,7 +11,7 @@ def transaction_consumer_producer(partition):
                 bootstrap_servers=['localhost:9092'],
                 value_deserializer=lambda m: loads(m.decode('ascii')),
                 group_id = 'delinquent'
-                )
+        )
         consumer.assign([TopicPartition('transactions', partition)])
 
         for message in consumer: 

@@ -4,11 +4,13 @@ from kafka import KafkaProducer
 import time
 import random
 from sqlalchemy import create_engine
+from sys import argv
 
 
 class Producer:
     
-    def __init__(self):
+    def __init__(self, partition):
+        self.partition = partition
         self.producer = KafkaProducer(bootstrap_servers=['localhost:9092'], value_serializer=lambda m: dumps(m).encode('ascii'))
 
     def emit(self, cust=55, type="dep"):
@@ -18,15 +20,13 @@ class Producer:
         current_count = db.execute(sql).fetchall()
         # get count of number of customers, and then execute a transaction from one of the customers
         # in the database
-        #print('hello', current_count[0][0])
-        #print(current_count)
         xaction_type = self.depOrWth()
         amount = random.randint(10,101)*100
         if xaction_type == 'wth':
             amount = -amount
         data = {
             'custid' : random.randint(1, current_count[0][0]),
-            'branchid': random.randint(1, 3),
+            'branchid': self.partition + 1,
             'type': xaction_type,
             'date': int(time.time()),
             'amt': amount,
@@ -41,12 +41,13 @@ class Producer:
         for _ in range(n):
             data = self.emit()
             print('sent', data)
-            self.producer.send('transactions', partition=data['branchid']-1, value=data)
+            self.producer.send('transactions', partition=self.partition, value=data)
             sleep(.5)
             
 
 if __name__ == "__main__":
+    partition = int(argv[1])
     sleep(5)
-    p = Producer()
+    p = Producer(partition)
     p.generateRandomXactions(n=1000)
     # by passing n = 20, it overwrites n = 1000 default 
