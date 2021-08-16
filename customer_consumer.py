@@ -1,8 +1,8 @@
 from kafka import KafkaConsumer, TopicPartition
 from json import loads
 from sys import argv
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import declarative_base
+from sqlalchemy import create_engine
+
 
 if __name__ == '__main__':
     engine = create_engine('sqlite:///bank.db', echo = True)

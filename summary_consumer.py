@@ -3,6 +3,7 @@ from json import loads
 from sqlalchemy import create_engine
 import statistics
 
+
 if __name__ == "__main__":
     engine = create_engine('sqlite:///bank.db', echo = True)
     db = engine.connect()
