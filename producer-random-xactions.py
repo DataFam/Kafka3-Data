@@ -20,7 +20,7 @@ class Producer:
         # in the database
         #print('hello', current_count[0][0])
         #print(current_count)
-
+        
         data = {
             'custid' : random.randint(1, current_count[0][0]),
             'branchid': (int(argv[1]) + 1),
@@ -40,10 +40,12 @@ class Producer:
             print('sent', data)
             partition = int(argv[1])
             self.producer.send('transactions', partition=partition, value=data)
-            sleep(5)
+            sleep(1)
+            
             
 
 if __name__ == "__main__":
+    sleep(5)
     p = Producer()
-    p.generateRandomXactions(n=20)
+    p.generateRandomXactions(n=1000)
     # by passing n = 20, it overwrites n = 1000 default 
