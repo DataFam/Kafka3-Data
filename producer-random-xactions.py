@@ -4,7 +4,7 @@ from kafka import KafkaProducer
 import time
 import random
 from sqlalchemy import create_engine
-from sys import argv
+
 
 class Producer:
     
@@ -20,13 +20,20 @@ class Producer:
         # in the database
         #print('hello', current_count[0][0])
         #print(current_count)
+<<<<<<< HEAD
         
+=======
+        xaction_type = self.depOrWth()
+        amount = random.randint(10,101)*100
+        if xaction_type == 'wth':
+            amount = -amount
+>>>>>>> bcd45796d920217ea1b157503a35985689e35128
         data = {
             'custid' : random.randint(1, current_count[0][0]),
-            'branchid': (int(argv[1]) + 1),
-            'type': self.depOrWth(),
+            'branchid': random.randint(1, 3),
+            'type': xaction_type,
             'date': int(time.time()),
-            'amt': random.randint(10,101)*100,
+            'amt': amount,
             }
         return data
     
@@ -38,10 +45,15 @@ class Producer:
         for _ in range(n):
             data = self.emit()
             print('sent', data)
+<<<<<<< HEAD
             partition = int(argv[1])
             self.producer.send('transactions', partition=partition, value=data)
             sleep(1)
             
+=======
+            self.producer.send('transactions', partition=data['branchid']-1, value=data)
+            sleep(.5)
+>>>>>>> bcd45796d920217ea1b157503a35985689e35128
             
 
 if __name__ == "__main__":
